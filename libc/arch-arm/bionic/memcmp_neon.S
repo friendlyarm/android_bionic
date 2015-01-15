@@ -40,6 +40,7 @@
  * Optimized memcmp() for Cortex-A9.
  */
 
+
 ENTRY(memcmp)
         pld         [r0, #(CACHE_LINE_SIZE * 0)]
         pld         [r0, #(CACHE_LINE_SIZE * 1)]
@@ -65,7 +66,6 @@ ENTRY(memcmp)
  * Neon optimization
  * Comparing 32 bytes at a time
  */
-#if defined(__ARM_NEON__) && defined(NEON_UNALIGNED_ACCESS)
         subs        r2, r2, #32
         blo         3f
 
@@ -109,7 +109,6 @@ ENTRY(memcmp)
 
         cmp        r2, #(8+4)
         bmi        10f
-#endif
 
         /* save registers */
         stmfd       sp!, {r4, lr}
@@ -491,3 +490,5 @@ ENTRY(memcmp)
         sub         r2, r2, #16
         b           .Lmemcmp_align_less16
 END(memcmp)
+
+
