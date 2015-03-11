@@ -305,5 +305,7 @@ __LIBC_HIDDEN__ void debuggerd_init() {
 #if defined(SIGSTKFLT)
   sigaction(SIGSTKFLT, &action, nullptr);
 #endif
+#ifndef VIEWRIGHT_STB_ENABLE
   sigaction(SIGTRAP, &action, nullptr);
+#endif
 }
